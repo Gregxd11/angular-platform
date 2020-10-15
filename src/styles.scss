@@ -1,4 +1,7 @@
-body {
+body.navbar-margin {
   background-color: hsl(0, 0%, 96%);
+  margin-top: 64px;
+}
+html {
   height: calc(100vh - 64px);
 }

@@ -1,15 +1,5 @@
-.hero {
-  .hero-body {
-    padding: 1.5rem 1.5rem;
-    .container {
-      .title {
-        font-size: 3em;
-      }
-    }
-  }
-}
-
 .container {
+  height: calc(100vh - 64px);
   .box {
     h1 {
       font-size: 2em;
