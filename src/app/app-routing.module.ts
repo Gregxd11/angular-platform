@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService } from './auth-guard.service';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PostsComponent } from './posts/posts.component';
+import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
@@ -11,6 +13,7 @@ const routes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
   {path: 'posts', component: PostsComponent},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
   {path: '**', component: ErrorPageComponent }
 ];
 

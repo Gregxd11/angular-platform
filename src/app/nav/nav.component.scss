@@ -4,3 +4,13 @@
     font-size: 2em;
   }
 }
+
+.active-nav,
+.navbar.is-danger .navbar-start > a.navbar-item:focus {
+  background-color: hsl(171, 100%, 41%);
+}
+
+.navbar.is-danger .navbar-brand > a.navbar-item:hover,
+.navbar.is-danger .navbar-brand > a.navbar-item:focus {
+  background-color: inherit;
+}

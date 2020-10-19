@@ -13,6 +13,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoginComponent } from './login/login.component';
 import { HeroComponent } from './hero/hero.component';
 import { PostsComponent } from './posts/posts.component';
+import { ProfileComponent } from './profile/profile.component';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -25,14 +27,18 @@ import { PostsComponent } from './posts/posts.component';
     ErrorPageComponent,
     LoginComponent,
     HeroComponent,
-    PostsComponent
+    PostsComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

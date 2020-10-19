@@ -1,6 +1,6 @@
 <nav class="navbar is-danger is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" routerLink='/'>
+    <a class="navbar-item" id='brand' routerLink='/'>
       LFG
     </a>
 
@@ -13,11 +13,7 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a routerLink='/' class="navbar-item">
-        Home
-      </a>
-
-      <a routerLink='/posts' class="navbar-item">
+      <a routerLink='/posts' class="navbar-item" routerLinkActive='active-nav'>
         Posts
       </a>
     </div>
