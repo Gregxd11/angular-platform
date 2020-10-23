@@ -11,10 +11,14 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
   id: string;
-  register(user: {}): void {
-    this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=', {
-      ...user,
-      returnSecureToken: true
-    }).subscribe((res: any) => this.id = res.localId);
+
+  handleRequest(reqtype: string, user: {}){
+    switch(reqtype){
+      case 'REGISTER':
+        this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyALc31vx9tfrnE7pcanh9OG5ToEW22nACY', {
+          ...user,
+          returnSecureToken: true
+        }).subscribe((res: any) => this.id = res.localId);
+    }
   }
 }

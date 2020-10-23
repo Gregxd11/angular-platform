@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class SignupComponent implements OnInit {
   buttonText = 'SIGN UP';
   title = 'SIGN UP';
+  reqType = 'REGISTER'
   constructor() { }
 
   ngOnInit(): void {
