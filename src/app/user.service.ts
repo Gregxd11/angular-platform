@@ -1,24 +1,52 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
+export // add user persistence
+class UserService {
+	constructor(private http: HttpClient) {}
+	id: string;
 
-// add user persistence
-export class UserService {
+	register(user: {}) {
+		this.http
+			.post(
+				'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyALc31vx9tfrnE7pcanh9OG5ToEW22nACY',
+				{
+					...user,
+					returnSecureToken: true
+				}
+			)
+			.subscribe((res: any) => {
+				this.id = res.localId;
+				localStorage.setItem('token', res.idToken);
+				localStorage.setItem('refreshToken', res.refreshToken);
+			});
+	}
 
-  constructor(private http: HttpClient) { }
-  id: string;
+	login(user: {}) {
+		this.http
+			.post(
+				'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyALc31vx9tfrnE7pcanh9OG5ToEW22nACY',
+				{
+					...user,
+					returnSecureToken: true
+				}
+			)
+			.subscribe((res: any) => {
+				this.id = res.localId;
+				localStorage.setItem('token', res.idToken);
+				localStorage.setItem('refreshToken', res.refreshToken);
+			});
+	}
 
-  handleRequest(reqtype: string, user: {}){
-    switch(reqtype){
-      case 'REGISTER':
-        this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyALc31vx9tfrnE7pcanh9OG5ToEW22nACY', {
-          ...user,
-          returnSecureToken: true
-        }).subscribe((res: any) => this.id = res.localId);
-    }
-  }
+	handleRequest(reqtype: string, user: {}) {
+		switch (reqtype) {
+			case 'REGISTER':
+				return this.register(user);
+			case 'LOGIN':
+				return this.login(user);
+		}
+	}
 }
