@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../posts.service';
-import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-posts',
@@ -11,14 +10,8 @@ export class PostsComponent implements OnInit {
   title = 'POSTS';
   posts = [];
 
-  constructor(private postsService: PostsService, public user: UserService) {}
+  constructor(private postsService: PostsService) {}
   ngOnInit(): void {
     this.postsService.getPosts().subscribe((res) => (this.posts = res));
-    console.log(
-      this.user.id,
-      'T: ' + localStorage.getItem('token'),
-      'RT: ' + localStorage.getItem('refreshToken'),
-      'TEST: ' + localStorage.getItem('test')
-    );
   }
 }

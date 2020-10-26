@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+  styleUrls: [ './form.component.scss' ]
 })
 export class FormComponent implements OnInit {
   @Input() buttonText: string;
@@ -17,16 +17,12 @@ export class FormComponent implements OnInit {
     password: new FormControl('', Validators.minLength(5))
   });
 
+  constructor(private user: UserService, public router: Router) {}
 
-  constructor(private user: UserService, public router: Router) { }
-
-  ngOnInit(): void {
-    console.log(this.user.id);
-  }
+  ngOnInit(): void {}
 
   onSubmit(): void {
-    this.user.handleRequest(this.reqType, this.form.value)
-    this.router.navigate(['posts']);
+    this.user.handleRequest(this.reqType, this.form.value);
+    this.router.navigate([ 'posts' ]);
   }
-
 }

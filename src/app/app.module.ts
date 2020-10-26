@@ -16,6 +16,7 @@ import { HeroComponent } from './hero/hero.component';
 import { PostsComponent } from './posts/posts.component';
 import { ProfileComponent } from './profile/profile.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     LoginComponent,
     HeroComponent,
     PostsComponent,
-    ProfileComponent
+    ProfileComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
