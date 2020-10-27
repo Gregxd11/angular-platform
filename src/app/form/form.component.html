@@ -1,3 +1,4 @@
+<app-error (erase)='deleteErr($event)' [error]='error' *ngIf='showError'></app-error>
 <div class="container">
   <div class="box mt-6">
     <form [formGroup]='form' (ngSubmit)="onSubmit()">

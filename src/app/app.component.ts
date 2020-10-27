@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,9 @@ export class AppComponent implements OnInit {
   title = 'platform';
   isAuthenticated: boolean;
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, public user: UserService) {}
 
   ngOnInit() {
     this.isAuthenticated = this.auth.isAuthenticated();
-    console.log(this.isAuthenticated);
   }
 }

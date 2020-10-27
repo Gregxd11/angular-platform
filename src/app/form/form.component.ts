@@ -11,6 +11,8 @@ import { UserService } from '../user.service';
 export class FormComponent implements OnInit {
   @Input() buttonText: string;
   @Input() reqType: string;
+  showError: boolean;
+  error: string;
 
   form = new FormGroup({
     email: new FormControl('', Validators.email),
@@ -19,10 +21,19 @@ export class FormComponent implements OnInit {
 
   constructor(private user: UserService, public router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.user.error.subscribe((res: string) => {
+      this.error = res;
+      this.showError = true;
+    });
+  }
 
   onSubmit(): void {
     this.user.handleRequest(this.reqType, this.form.value);
-    this.router.navigate([ 'posts' ]);
+  }
+
+  deleteErr(event: boolean) {
+    this.showError = !event;
+    this.user.error = null;
   }
 }

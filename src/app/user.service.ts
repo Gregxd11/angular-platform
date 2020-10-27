@@ -1,16 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, public router: Router) {}
   id: string;
-  error: string;
 
   public isLoggedIn = new Subject();
+  public error = new Subject();
+
+  // Successful response
+  success(res: any) {
+    this.id = res.localId;
+    this.error = null;
+    localStorage.setItem('token', res.idToken);
+    localStorage.setItem('refreshToken', res.refreshToken);
+    this.isLoggedIn.next(true);
+    this.router.navigate([ 'posts' ]);
+  }
 
   register(user: {}) {
     this.http
@@ -21,12 +32,10 @@ export class UserService {
           returnSecureToken: true
         }
       )
-      .subscribe((res: any) => {
-        this.id = res.localId;
-        localStorage.setItem('token', res.idToken);
-        localStorage.setItem('refreshToken', res.refreshToken);
-        this.isLoggedIn.next(true);
-      }, (err) => (this.error = err));
+      .subscribe(
+        (res: any) => this.success(res),
+        (err) => this.error.next(err.error.error.message)
+      );
   }
 
   login(user: {}) {
@@ -38,18 +47,19 @@ export class UserService {
           returnSecureToken: true
         }
       )
-      .subscribe((res: any) => {
-        this.id = res.localId;
-        localStorage.setItem('token', res.idToken);
-        localStorage.setItem('refreshToken', res.refreshToken);
-        this.isLoggedIn.next(true);
-      });
+      .subscribe(
+        (res: any) => this.success(res),
+        (err) => {
+          this.error.next(err.error.error.message);
+        }
+      );
   }
 
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
     this.isLoggedIn.next(false);
+    this.router.navigate([ '' ]);
   }
 
   handleRequest(reqtype: string, user: {} = null) {
