@@ -34,6 +34,5 @@ export class FormComponent implements OnInit {
 
   deleteErr(event: boolean) {
     this.showError = !event;
-    this.user.error = null;
   }
 }

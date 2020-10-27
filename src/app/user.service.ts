@@ -11,16 +11,23 @@ export class UserService {
   id: string;
 
   public isLoggedIn = new Subject();
-  public error = new Subject();
+  public error = new Subject<string>();
 
   // Successful response
   success(res: any) {
     this.id = res.localId;
-    this.error = null;
+    this.error.next('');
     localStorage.setItem('token', res.idToken);
     localStorage.setItem('refreshToken', res.refreshToken);
     this.isLoggedIn.next(true);
     this.router.navigate([ 'posts' ]);
+  }
+
+  // Error response
+  failed(err: any) {
+    const regex = /_/g;
+    const errorMessage: string = err.error.error.message;
+    this.error.next(errorMessage.replace(regex, ' '));
   }
 
   register(user: {}) {
@@ -32,10 +39,7 @@ export class UserService {
           returnSecureToken: true
         }
       )
-      .subscribe(
-        (res: any) => this.success(res),
-        (err) => this.error.next(err.error.error.message)
-      );
+      .subscribe(res => this.success(res), err => this.failed(err));
   }
 
   login(user: {}) {
@@ -47,12 +51,7 @@ export class UserService {
           returnSecureToken: true
         }
       )
-      .subscribe(
-        (res: any) => this.success(res),
-        (err) => {
-          this.error.next(err.error.error.message);
-        }
-      );
+      .subscribe(res => this.success(res), err => this.failed(err));
   }
 
   logout() {

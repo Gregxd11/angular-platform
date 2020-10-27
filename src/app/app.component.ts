@@ -15,5 +15,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.isAuthenticated = this.auth.isAuthenticated();
+    this.user.error.next('');
   }
 }
