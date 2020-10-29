@@ -18,6 +18,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { LogoutComponent } from './logout/logout.component';
 import { PostFormComponent } from './post-form/post-form.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { PostFormComponent } from './post-form/post-form.component';
     PostsComponent,
     ProfileComponent,
     LogoutComponent,
-    PostFormComponent
+    PostFormComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

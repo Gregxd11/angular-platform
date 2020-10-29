@@ -18,8 +18,21 @@ export class PostsService {
         data
       })
       .subscribe(res => {
-        console.log(res);
         this.router.navigate([ 'posts' ]);
       });
+  }
+
+  addToGroup(id) {
+    this.http.get(`${environment.url}/posts/${id}.json`).subscribe((res: any) => {
+      this.http
+        .put(`${environment.url}/posts/${id}.json`, {
+          data: {
+            ...res.data,
+            numOfPlayers: res.data.numOfPlayers - 1,
+            members: 1
+          }
+        })
+        .subscribe(res => window.location.reload());
+    });
   }
 }

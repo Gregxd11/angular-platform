@@ -1,0 +1,12 @@
+<div class="modal is-active">
+  <div (click)='closeModal()' class="modal-background"></div>
+  <div class="modal-content">
+    <div *ngFor='let post of post' class="container">
+      <div class="box">
+        <h1>{{post.game}}</h1>
+        <button (click)='addToGroup(post.id)'>JOIN</button>
+      </div>
+    </div>
+  </div>
+  <button (click)='closeModal()' class="modal-close is-large" aria-label="close"></button>
+</div>

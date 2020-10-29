@@ -1,5 +1,6 @@
 <app-hero [title]='title'></app-hero>
 <button routerLink='/posts/new'>CREATE POST</button>
+<app-modal [post]='fullPost' *ngIf='showModal' (close)='closeModal($event)' (postId)='addToGroup($event)'></app-modal>
 <div class="container mt-6">
   <div class="columns is-multiline">
     <div *ngFor='let post of posts' class='box column is-one-third'>
@@ -7,10 +8,11 @@
       <hr>
       <div class="box">
         <p id='groupLeader'>Group Leader: {{post.username}}</p>
-        <p>Members: </p>
+        <p>Members: {{post.members}} </p>
       </div>
       <p>Platform: {{post.platform}}</p>
       <p>Looking for {{post.numOfPlayers}} more to play with!</p>
+      <button (click)='openModal(post.id)'>JOIN</button>
     </div>
   </div>
 </div>
