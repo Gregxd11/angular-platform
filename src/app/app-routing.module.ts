@@ -5,6 +5,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { PostFormComponent } from './post-form/post-form.component';
 import { PostsComponent } from './posts/posts.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'posts', component: PostsComponent },
+  { path: 'posts/new', component: PostFormComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [ AuthGuardService ] },
   { path: '**', component: ErrorPageComponent }
 ];

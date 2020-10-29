@@ -1,10 +1,16 @@
 <app-hero [title]='title'></app-hero>
+<button routerLink='/posts/new'>CREATE POST</button>
 <div class="container mt-6">
   <div class="columns is-multiline">
     <div *ngFor='let post of posts' class='box column is-one-third'>
-      <h3>{{post.title}}</h3>
+      <h3>{{post.game}}</h3>
       <hr>
-      <p>{{post.body}}</p>
+      <div class="box">
+        <p id='groupLeader'>Group Leader: {{post.username}}</p>
+        <p>Members: </p>
+      </div>
+      <p>Platform: {{post.platform}}</p>
+      <p>Looking for {{post.numOfPlayers}} more to play with!</p>
     </div>
   </div>
 </div>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -32,20 +33,17 @@ export class UserService {
 
   register(user: {}) {
     this.http
-      .post(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyALc31vx9tfrnE7pcanh9OG5ToEW22nACY',
-        {
-          ...user,
-          returnSecureToken: true
-        }
-      )
+      .post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, {
+        ...user,
+        returnSecureToken: true
+      })
       .subscribe(res => this.success(res), err => this.failed(err));
   }
 
   login(user: {}) {
     this.http
       .post(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyALc31vx9tfrnE7pcanh9OG5ToEW22nACY',
+        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`,
         {
           ...user,
           returnSecureToken: true

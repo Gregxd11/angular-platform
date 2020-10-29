@@ -1,0 +1,55 @@
+<app-hero [title]='title'></app-hero>
+<div class="container">
+  <div class="box">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="field">
+        <label class="label">Username</label>
+        <div class="control">
+          <input required class="input" formControlName='username' type="text" placeholder="Discord name, steam name, etc.">
+        </div>
+      </div>
+      
+      <div class="field">
+        <label class="label">Platform</label>
+        <div class="control">
+          <div class="select">
+            <select required formControlName='platform' >
+              <option value='' disabled>Select platform</option>
+              <option *ngFor='let platform of platforms' [ngValue]='platform'>{{platform}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Game</label>
+        <div class="control">
+          <div class="select">
+            <select required formControlName='game'>
+              <option value='' disabled>Select game</option>
+              <option *ngFor='let game of games' [ngValue]='game'>{{game}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Number of players wanted (excluding yourself)</label>
+        <div class="control">
+          <div class="select">
+            <select required formControlName='numOfPlayers'>
+              <option value='' disabled>#</option>
+              <option *ngFor='let num of players' [ngValue]='num'>{{num}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button [disabled]='!form.valid' class="button is-primary">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
