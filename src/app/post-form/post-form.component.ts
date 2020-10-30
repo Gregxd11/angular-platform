@@ -12,7 +12,7 @@ export class PostFormComponent implements OnInit {
 
   games = [ 'Rocket League', 'Rainbow Six: Siege', 'CS:GO', 'League of Legends' ];
 
-  players = [ 1, 2, 3, 4, 5 ];
+  players = [ 1, 2, 3, 4 ];
 
   platforms = [ 'PC', 'Playstation', 'Xbox', 'Switch' ];
 

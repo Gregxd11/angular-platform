@@ -10,6 +10,7 @@ export class PostsComponent implements OnInit {
   title = 'POSTS';
   posts = [];
   fullPost = [];
+  modalAction: string;
   showModal: boolean;
 
   constructor(private postsService: PostsService) {}
@@ -21,9 +22,10 @@ export class PostsComponent implements OnInit {
     });
   }
 
-  openModal(id) {
+  openModal(id, modalType) {
     this.fullPost = this.posts.filter(post => post.id === id);
     this.showModal = true;
+    this.modalAction = modalType;
   }
 
   closeModal(event: boolean) {
@@ -32,5 +34,9 @@ export class PostsComponent implements OnInit {
 
   addToGroup(id: string) {
     this.postsService.addToGroup(id);
+  }
+
+  deletePost(id: string) {
+    this.postsService.deletePost(id);
   }
 }

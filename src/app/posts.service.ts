@@ -15,28 +15,33 @@ export class PostsService {
   createPost(data): any {
     this.http
       .post(`${environment.url}/posts.json`, {
-        data
+        data: {
+          ...data,
+          members: 1
+        }
       })
       .subscribe(res => {
         this.router.navigate([ 'posts' ]);
       });
   }
 
-  addToGroup(id) {
+  addToGroup(id: string) {
     this.http.get(`${environment.url}/posts/${id}.json`).subscribe((res: any) => {
-      let members = 1;
-      if (res.data.members) {
-        members = res.data.members + 1;
-      }
       this.http
         .put(`${environment.url}/posts/${id}.json`, {
           data: {
             ...res.data,
             numOfPlayers: res.data.numOfPlayers - 1,
-            members
+            members: res.data.members + 1
           }
         })
         .subscribe(res => window.location.reload());
     });
+  }
+
+  deletePost(id: string) {
+    this.http
+      .delete(`${environment.url}/posts/${id}.json`)
+      .subscribe(res => window.location.reload());
   }
 }

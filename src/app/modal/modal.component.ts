@@ -7,8 +7,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ModalComponent implements OnInit {
   @Input() post;
+  @Input() modalAction;
   @Output() close = new EventEmitter<boolean>();
   @Output() postId = new EventEmitter<string>();
+  @Output() deleteId = new EventEmitter<string>();
 
   constructor() {}
 
@@ -20,5 +22,11 @@ export class ModalComponent implements OnInit {
 
   addToGroup(id: string) {
     this.postId.emit(id);
+    this.close.emit(false);
+  }
+
+  deletePost(id: string) {
+    this.deleteId.emit(id);
+    this.close.emit(false);
   }
 }
