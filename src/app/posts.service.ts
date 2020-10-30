@@ -24,12 +24,16 @@ export class PostsService {
 
   addToGroup(id) {
     this.http.get(`${environment.url}/posts/${id}.json`).subscribe((res: any) => {
+      let members = 1;
+      if (res.data.members) {
+        members = res.data.members + 1;
+      }
       this.http
         .put(`${environment.url}/posts/${id}.json`, {
           data: {
             ...res.data,
             numOfPlayers: res.data.numOfPlayers - 1,
-            members: 1
+            members
           }
         })
         .subscribe(res => window.location.reload());

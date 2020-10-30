@@ -1,5 +1,8 @@
 .container {
   .columns {
+    .box:last-child {
+      margin-bottom: 1.5rem;
+    }
     .column {
       h3 {
         font-size: 1.75rem;
