@@ -1,5 +1,7 @@
 <app-hero [title]='title'></app-hero>
 <app-modal [modalAction]='modalAction' [post]='fullPost' *ngIf='showModal' (close)='closeModal($event)' (deleteId)='deletePost($event)' (postId)='addToGroup($event)'></app-modal>
+<button class="button is-large is-danger" (click)='test()'>test
+</button>
 <div class="container mt-6">
   <div class="columns is-multiline">
     <button class="button is-primary is-large column is-half is-offset-one-quarter" routerLink='/posts/new'>CREATE POST</button>
@@ -14,7 +16,7 @@
         <p>Members: {{post.members}} </p>
       </div>
       <p>Platform: {{post.platform}}</p>
-      <p>Looking for {{post.numOfPlayers}} more to play with!</p>
+      <p>Looking for <strong>{{post.numOfPlayers}}</strong> more to play with!</p>
       <div class="is-justify-content-space-between is-flex-direction-row is-flex mt-3">
           <button class="button is-primary is-outlined" (click)='openModal(post.id, "JOIN")'>JOIN</button>
           <button class="button is-danger is-outlined" (click)='openModal(post.id, "DELETE")'>DELETE</button>

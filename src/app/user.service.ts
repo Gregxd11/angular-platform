@@ -9,8 +9,8 @@ import { environment } from '../environments/environment';
 })
 export class UserService {
   constructor(private http: HttpClient, public router: Router) {}
-  id: string;
-  // username: string;
+  id: string = localStorage.getItem('userId');
+  username: string = localStorage.getItem('username');
 
   public isLoggedIn = new Subject();
   public error = new Subject<string>();
@@ -18,12 +18,12 @@ export class UserService {
 
   // Successful response
   success(res: any) {
-    this.id = res.localId;
+    localStorage.setItem('userId', res.localId);
     this.error.next('');
     localStorage.setItem('token', res.idToken);
     localStorage.setItem('refreshToken', res.refreshToken);
     this.isLoggedIn.next(true);
-    this.router.navigate([ 'posts' ]);
+    window.location.replace('/posts');
   }
 
   // Error response
@@ -52,7 +52,7 @@ export class UserService {
           )
           .subscribe(
             (response: any) => {
-              // this.username = response.displayName;
+              localStorage.setItem('username', response.displayName);
               this.success(res);
             },
             err => this.failed(err)
@@ -81,7 +81,7 @@ export class UserService {
             )
             .subscribe(
               (response: any) => {
-                // this.username = response.users[0].displayName;
+                localStorage.setItem('username', response.users[0].displayName);
                 this.successMsg.next(`Successfully logged in as ${response.users[0].displayName}`);
                 this.success(res);
               },
@@ -94,8 +94,18 @@ export class UserService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userId');
     this.isLoggedIn.next(false);
-    this.router.navigate([ '' ]);
+    window.location.replace('/');
+  }
+
+  usernameRefresh(): string {
+    return (this.username = localStorage.getItem('username'));
+  }
+
+  checkId(): void {
+    console.log(this.id);
   }
 
   handleRequest(reqtype: string, user: {} = null) {

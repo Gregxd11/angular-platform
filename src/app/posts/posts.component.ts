@@ -42,4 +42,8 @@ export class PostsComponent implements OnInit {
   deletePost(id: string) {
     this.postsService.deletePost(id);
   }
+
+  test() {
+    this.user.checkId();
+  }
 }
