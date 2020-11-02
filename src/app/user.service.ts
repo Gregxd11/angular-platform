@@ -10,9 +10,11 @@ import { environment } from '../environments/environment';
 export class UserService {
   constructor(private http: HttpClient, public router: Router) {}
   id: string;
+  // username: string;
 
   public isLoggedIn = new Subject();
   public error = new Subject<string>();
+  public successMsg = new Subject<string>();
 
   // Successful response
   success(res: any) {
@@ -31,13 +33,32 @@ export class UserService {
     this.error.next(errorMessage.replace(regex, ' '));
   }
 
-  register(user: {}) {
+  // This can probably be refactored and better optimized. It creates an account, waits for the response, and then adds a username to the profile.
+  register({ email, password, username }: any) {
     this.http
       .post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, {
-        ...user,
+        email,
+        password,
         returnSecureToken: true
       })
-      .subscribe(res => this.success(res), err => this.failed(err));
+      .subscribe((res: any) => {
+        this.http
+          .post(
+            `https://identitytoolkit.googleapis.com/v1/accounts:update?key=${environment.apiKey}`,
+            {
+              idToken: res.idToken,
+              displayName: username
+            }
+          )
+          .subscribe(
+            (response: any) => {
+              // this.username = response.displayName;
+              this.success(res);
+            },
+            err => this.failed(err)
+          ),
+          err => this.failed(err);
+      });
   }
 
   login(user: {}) {
@@ -49,7 +70,25 @@ export class UserService {
           returnSecureToken: true
         }
       )
-      .subscribe(res => this.success(res), err => this.failed(err));
+      .subscribe(
+        (res: any) =>
+          this.http
+            .post(
+              `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${environment.apiKey}`,
+              {
+                idToken: res.idToken
+              }
+            )
+            .subscribe(
+              (response: any) => {
+                // this.username = response.users[0].displayName;
+                this.successMsg.next(`Successfully logged in as ${response.users[0].displayName}`);
+                this.success(res);
+              },
+              err => this.failed(err)
+            ),
+        err => this.failed(err)
+      );
   }
 
   logout() {

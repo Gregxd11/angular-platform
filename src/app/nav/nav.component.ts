@@ -9,10 +9,14 @@ import { UserService } from '../user.service';
 })
 export class NavComponent implements OnInit {
   @Input() isAuthenticated: boolean;
+  // username: string;
 
   constructor(public user: UserService, public auth: AuthService) {}
 
   ngOnInit(): void {
-    this.user.isLoggedIn.subscribe((res: boolean) => (this.isAuthenticated = res));
+    this.user.isLoggedIn.subscribe((res: boolean) => {
+      this.isAuthenticated = res;
+      // this.username = this.user.username;
+    });
   }
 }

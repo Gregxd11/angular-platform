@@ -25,6 +25,8 @@ export class PostsService {
       });
   }
 
+  // add username and userId
+
   addToGroup(id: string) {
     this.http.get(`${environment.url}/posts/${id}.json`).subscribe((res: any) => {
       this.http

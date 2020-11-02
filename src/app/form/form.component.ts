@@ -16,7 +16,8 @@ export class FormComponent implements OnInit {
 
   form = new FormGroup({
     email: new FormControl('', Validators.email),
-    password: new FormControl('', Validators.minLength(5))
+    password: new FormControl('', Validators.minLength(5)),
+    username: new FormControl('', Validators.minLength(3))
   });
 
   constructor(private user: UserService, public router: Router) {}

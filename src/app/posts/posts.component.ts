@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../posts.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-posts',
@@ -12,8 +13,10 @@ export class PostsComponent implements OnInit {
   fullPost = [];
   modalAction: string;
   showModal: boolean;
+  successMsg: string;
+  showMsg: boolean;
 
-  constructor(private postsService: PostsService) {}
+  constructor(private postsService: PostsService, public user: UserService) {}
   ngOnInit(): void {
     this.postsService.getPosts().subscribe(res => {
       for (let post in res) {

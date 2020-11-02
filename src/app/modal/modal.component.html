@@ -3,17 +3,17 @@
   <div *ngIf='modalAction == "JOIN"' class="modal-content">
     <div  *ngFor='let post of post' class="container">
       <div class="box">
-        <h1>{{post.game}}</h1>
-        <button (click)='addToGroup(post.id)'>JOIN</button>
+        <h1 class="game-title">{{post.game}}</h1>
+        <button class="button is-primary" (click)='addToGroup(post.id)'>JOIN</button>
       </div>
     </div>
   </div>
   <div *ngIf='modalAction == "DELETE"' class="modal-content">
     <div  *ngFor='let post of post' class="container">
-      <div class="box">
-        <h1>{{post.game}}</h1>
-        <p>Delete post?</p>
-        <button (click)='deletePost(post.id)'>DELETE</button>
+      <div class="box" id='deleteModal'>
+        <h1 class="game-title">{{post.game}}</h1>
+        <p class="mb-3">Delete post?</p>
+        <button class="button is-danger" (click)='deletePost(post.id)'>DELETE</button>
       </div>
     </div>
   </div>

@@ -1,2 +1,3 @@
 <app-nav [isAuthenticated]='isAuthenticated'></app-nav>
+<app-success-message [successMsg]='successMsg' *ngIf='showMsg'(erase)='closeMessage()' ></app-success-message>
 <router-outlet></router-outlet>

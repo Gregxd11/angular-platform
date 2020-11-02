@@ -4,6 +4,9 @@
   <div class="columns is-multiline">
     <button class="button is-primary is-large column is-half is-offset-one-quarter" routerLink='/posts/new'>CREATE POST</button>
     <div *ngFor='let post of posts' class='box column is-one-third'>
+      <figure class="image is-5by3">
+        <img src="../../assets/img/rocketleague.jpg" alt="Placeholder image">
+      </figure>
       <h3>{{post.game}}</h3>
       <hr>
       <div class="box">
@@ -12,7 +15,7 @@
       </div>
       <p>Platform: {{post.platform}}</p>
       <p>Looking for {{post.numOfPlayers}} more to play with!</p>
-      <div class="is-justify-content-space-between">
+      <div class="is-justify-content-space-between is-flex-direction-row is-flex mt-3">
           <button class="button is-primary is-outlined" (click)='openModal(post.id, "JOIN")'>JOIN</button>
           <button class="button is-danger is-outlined" (click)='openModal(post.id, "DELETE")'>DELETE</button>
       </div>
